@@ -1,0 +1,20 @@
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from './assets/vite.svg'
+import heroImg from './assets/hero.png'
+import './App.css'
+import Student from './Student';
+function App() {
+  const [count, setCount] = useState(0)
+
+  return (
+    <>
+   <h2>Student Information</h2>
+   <Student name="Anuj" course="B.Tech" marks="69"/>
+   <Student name="Jack" course="M.Tech" marks="99"/>
+   <Student name="Gav" course="MCA" marks="42"/>
+   </>
+  )
+}
+
+export default App

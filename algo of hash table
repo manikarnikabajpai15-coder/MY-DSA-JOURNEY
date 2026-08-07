@@ -1,0 +1,13 @@
+step 1: start
+step 2: initialise hash table of size 'SIZE' with all elements= '-1'
+step 3: read the key to be inserted
+step 4: compute index using hash function 
+index= key%size;
+step 5: if table[index] is empty
+insert key at table[index]
+step 6: else (collision occurs)
+       -> repeat
+       index =(index+1)%size
+       -> until an empty slot findd
+step 7: insert key at new index
+step8: stop
