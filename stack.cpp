@@ -1,4 +1,4 @@
-#include<iostream> 
+/*/*#include<iostream> 
 #include<vector>
 using namespace std;
 /*
@@ -38,7 +38,7 @@ class stack{
 
     return 0;
 }
-*/
+
   // stack using class template
    template<class T>
 class Stack{
@@ -82,4 +82,54 @@ int main(){
     }
 
     return 0;
+}
+#include<iostream>
+#include<stack>
+using namespace std;
+int main(){
+    Stack<int>s;
+    s.push(2);
+    cout<<s.top();
+    return 0;
+};  */        
+#include<iostream> 
+#include<stack>
+#include<string>       
+using namespace std;
+void push_at_btm(stack<int>& s,int val){
+    if(s.empty()){
+        s.push(val);
+        return;
+    }
+    int temp= s.top();
+    s.pop();
+    push_at_btm(s,val);
+    s.push(temp);
+}  
+void rev_string(stack<char>& s, string r){
+for(int i=0; i<r.length(); i++){
+    s.push(r[i]);
+};
+while(!s.empty()){
+    cout<<s.top();
+    s.pop();
+};
+}
+int main()   {
+    /*stack<int>s;
+    s.push(3);
+    s.push(2);
+    s.push(1);
+    push_at_btm(s,4);
+    while(!s.empty()){
+        cout<<s.top()<<" ";
+        s.pop();
+    }*/
+   stack<char>s;
+   rev_string(s,"abcd");
+    return 0;
+    
+
+    
+    
 }
