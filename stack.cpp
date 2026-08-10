@@ -96,6 +96,12 @@ int main(){
 #include<stack>
 #include<string>       
 using namespace std;
+void print(stack<int>& s){
+    while(!s.empty()){
+    cout<<s.top();
+    s.pop();
+};
+}
 void push_at_btm(stack<int>& s,int val){
     if(s.empty()){
         s.push(val);
@@ -115,18 +121,30 @@ while(!s.empty()){
     s.pop();
 };
 }
+void rev_stack(stack<int>& s){
+    if(s.empty()){
+        return;
+    }
+int temp= s.top();
+s.pop();
+rev_stack(s);
+push_at_btm(s,temp);
+print(s);
+}
 int main()   {
-    /*stack<int>s;
+    stack<int>s;
     s.push(3);
     s.push(2);
     s.push(1);
-    push_at_btm(s,4);
+   /*push_at_btm(s,4);
     while(!s.empty()){
         cout<<s.top()<<" ";
         s.pop();
     }*/
-   stack<char>s;
-   rev_string(s,"abcd");
+   /*stack<char>s;
+   rev_string(s,"abcd");*/
+   rev_stack(s);
+   
     return 0;
     
 
