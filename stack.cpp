@@ -120,8 +120,8 @@ while(!s.empty()){
     cout<<s.top();
     s.pop();
 };
-}
-void rev_stack(stack<int>& s){
+}*/
+/*void rev_stack(stack<int>& s){
     if(s.empty()){
         return;
     }
@@ -130,7 +130,8 @@ s.pop();
 rev_stack(s);
 push_at_btm(s,temp);
 print(s);
-}
+
+}/*
 int main()   {
     stack<int>s;
     s.push(3);
@@ -151,7 +152,7 @@ int main()   {
     
     
 }*/
-#include<iostream>
+/*#include<iostream>
 #include<vector>
 #include<stack>
 using namespace std;
@@ -174,12 +175,48 @@ void stock_span(vector<int> stock, vector<int> span){
     };
     for(int i=0; i<span.size(); i++){
         cout<<span[i]<<" ";
+    };
+};*/
+#include <iostream>
+#include <vector>
+#include <stack>
+using namespace std;
+
+void next_greater(vector<int> arr, vector<int>& ans) {
+    stack<int> s;
+
+    // Right se left traverse karenge
+    for (int i = arr.size() - 1; i >= 0; i--) {
+
+        // Chhote/equal elements ko remove karo
+        while (!s.empty() && arr[i] >= s.top()) {
+            s.pop();
+        }
+
+        // Stack empty hai -> koi greater element nahi
+        if (s.empty()) {
+            ans[i] = -1;
+        }
+        else {
+            ans[i] = s.top();
+        }
+
+        // Current element ko stack mein push karo
+        s.push(arr[i]);
     }
-};
-int main(){
-    vector<int> stock = {100,80,60,70,60,85,100};
-    vector<int> span = {0,0,0,0,0,0,0};
-    stock_span(stock, span);
-    
-    return 0;
 }
+
+int main() {
+
+    vector<int> arr = {6, 8, 0, 1, 3};
+
+    vector<int> ans(arr.size());
+
+    next_greater(arr, ans);
+
+    for (int i = 0; i < ans.size(); i++) {
+        cout << ans[i] << " ";
+    }
+
+    return 0;
+};
