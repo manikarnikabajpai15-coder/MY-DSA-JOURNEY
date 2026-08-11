@@ -177,7 +177,7 @@ void stock_span(vector<int> stock, vector<int> span){
         cout<<span[i]<<" ";
     };
 };*/
-#include <iostream>
+/*#include <iostream>
 #include <vector>
 #include <stack>
 using namespace std;
@@ -219,4 +219,42 @@ int main() {
     }
 
     return 0;
+};*/
+#include<iostream>
+#include<stack>
+#include<string>
+using namespace std;
+bool valid_paranthesis(string p){
+    stack<char> s;
+    for(int i=0; i<p.length();i++){
+char ch= p[i];
+        if(ch=='('|| ch=='{' || ch=='['){
+            s.push(ch);
+        }
+        else{
+            if(s.empty()){
+                return false;
+            }
+            else{
+                int top= s.top();
+                if(top=='(' && ch==')' || top=='{' && ch=='}' || top=='[' && ch==']'){
+                    s.pop();
+                }
+                else{
+                    return false;
+                };
+            };
+        };
+    };
+    if(s.empty()){
+        return true;
+    }
+    else{
+        return false;
+    };
+
 };
+int main(){
+   cout<< valid_paranthesis("{[()][]");
+    return 0;
+}
