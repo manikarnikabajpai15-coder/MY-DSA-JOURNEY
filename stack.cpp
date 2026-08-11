@@ -220,7 +220,7 @@ int main() {
 
     return 0;
 };*/
-#include<iostream>
+/*#include<iostream>
 #include<stack>
 #include<string>
 using namespace std;
@@ -256,5 +256,39 @@ char ch= p[i];
 };
 int main(){
    cout<< valid_paranthesis("{[()][]");
+    return 0;
+}*/
+#include<iostream>
+#include<string>
+#include<stack>
+using namespace std;
+bool duplicate_Paranthesis(string r){
+    stack<char> s;
+    for(int i=0; i<r.length(); i++){
+        char ch= r[i];
+        if(ch==')'|| ch=='}' || ch==']'){
+        
+            if(s.top()=='(' && ch==')' || s.top()=='{' && ch=='}' || s.top()=='[' && ch==']'){
+                return true;
+            }
+            else{
+                while(s.top()!='(' && ch==')' || s.top()!='{' && ch=='}' || s.top()!='[' && ch==']'){
+                    s.pop();
+                }
+                s.pop();
+                
+            }
+
+        }
+        else{
+            s.push(ch);
+        };
+    };
+    return false;
+    
+}
+int main(){
+    cout<<duplicate_Paranthesis("((a+b))");
+    cout<<duplicate_Paranthesis("((a+b)+(z+d))");
     return 0;
 }
