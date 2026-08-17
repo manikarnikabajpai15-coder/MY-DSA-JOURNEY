@@ -284,5 +284,57 @@ int main(){
 
     return 0;
 }*/
+//deque->double ended queue
+/*#include<iostream>
+#include<deque>
+using namespace std;
+int main(){
+    deque<int> d;
+    d.push_back(1);
+    d.pop_front(2);
+    d.push_front(3);
+    d.pop_back(4);
+    d.front();
+    d.back();
+    return 0;
+
+}*/
+//queue using deque
+#include<iostream>
+#include<deque>
+using namespace std;
+class queue{
+    deque<int> d;
+    public:
+    void push(int data){
+        d.push_back(data);
+
+    };
+    void pop(){
+        d.pop_front();
+    };
+    int front(){
+        return d.front();
+    };
+    bool empty(){
+        if(d.empty()){
+            return true;
+        };
+        return false;
+    };
+};
+int main(){
+    queue q;
+    q.push(1);
+    q.push(2);
+    q.push(3);
+    q.push(4);
+    while(!q.empty()){
+        cout<<q.front()<<" ";
+        q.pop();
+    };
+
+    return 0;
+}
 
    
