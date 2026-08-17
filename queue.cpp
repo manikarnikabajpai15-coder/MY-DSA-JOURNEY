@@ -61,15 +61,9 @@ class queue{
             cout<<q.front();
             q.pop();
         }
-
-
-
-
-
-
-        return 0;
-    }*/
-   #include<iostream>
+ return 0;}*/
+   //circular queue using array
+   /* #include<iostream>
    using namespace std;
    class queue{
     int *arr;
@@ -106,16 +100,7 @@ class queue{
                     return true;
                 };
                 return false;
-            };
-
-                
-            
-
-
-
-
-    
-   };
+            };};
    int main(){
     queue q(5);
     q.push(1);
@@ -127,9 +112,149 @@ class queue{
         cout<<q.front();
         q.pop();
     };
+    return 0;}*/
+    //queue using stl
+   /* #include<iostream>
+    #include<queue>
+    using namespace std;
+    int main(){
+        queue<int> q;
+        q.push(1);
+        q.push(2);
+        q.push(3);
+        q.push(4);
+        while(!q.empty()){
+            cout<<q.front()<<endl;
+            q.pop();
+
+        };
+        return 0;
+    }*/
+   // queue using two stacks
+   /*#include<iostream>
+   #include<stack>
+   using namespace std;
+   class queue{
+    stack<int> s1;
+    stack<int> s2;
+    public:
+    void push(int data){
+        while(!s1.empty()){
+            s2.push(s1.top());
+            s1.pop();
+            };
+            s1.push(data);
+            while(!s2.empty()){
+                s1.push(s2.top());
+                s2.pop();
+            };
+
+    };
+    void pop(){
+        s1.pop();
+
+    };
+    int front(){
+        return s1.top();
+
+    };
+    bool empty(){
+        if(s1.empty()){
+            return true;
+        };
+        return false;
+    }
+
+   };
+   int main(){
+    queue q;
+    q.push(1);
+    q.push(2);
+    q.push(3);
+    q.push(4);
+    while(!q.empty()){
+        cout<<q.front()<<endl;
+        q.pop();
+
+    };
+
+
     return 0;
+   }*/
+  //stack using two queues
+  /*#include<iostream>
+  #include<queue>
+  using namespace std;
+  class stack{
+    queue<int> q1;
+    queue<int> q2;
+    public:
+    void push(int data){
+        while(!q1.empty()){
+            q2.push(q1.front());
+            q1.pop();
+        }
+        q1.push(data);
+        while(!q2.empty()){
+            q1.push(q2.front());
+            q2.pop();
+        };
+    };
+    void pop(){
+        q1.pop();
+    };
+    int top(){
+        return q1.front();
+    };
+    bool empty(){
+        if(q1.empty()){
+            return true;
+        };
+        return false;
+    };
 
 
+  };
+  int main(){
+    stack s;
+    s.push(3);
+    s.push(2);
+    s.push(1);
+    while(!s.empty()){
+        cout<<s.top()<<endl;
+        s.pop();
+    };
 
-   }
+
+    return 0;
+  }*/
+ //interleave 2 queues
+ #include<iostream>
+ #include<queue>
+ using namespace std;
+
+ int main(){
+    queue<int> q1;
+    for(int i=0; i<10; i++){
+        q1.push(i);
+    };
+    queue<int> q2;
+    for(int i=0; i<5; i++){
+        q2.push(i);
+        q1.pop();
+    };
+    while(!q2.empty()){
+        q1.push(q2.front());
+        q2.pop();
+        q1.push(q1.front());
+        q1.pop();
+    };
+    while(!q1.empty()){
+        cout<<q1.front();
+        q1.pop();
+    };
+
+    return 0;
+ }
+
    
