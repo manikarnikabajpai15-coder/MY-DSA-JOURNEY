@@ -300,7 +300,7 @@ int main(){
 
 }*/
 //queue using deque
-#include<iostream>
+/*#include<iostream>
 #include<deque>
 using namespace std;
 class queue{
@@ -332,6 +332,44 @@ int main(){
     while(!q.empty()){
         cout<<q.front()<<" ";
         q.pop();
+    };
+
+    return 0;
+}*/
+//stack using deque
+#include<iostream>
+#include<deque>
+using namespace std;
+class stack{
+    deque<int> d;
+    public:
+    void push(int data){
+        d.push_back(data);
+    };
+    void pop(){
+        d.pop_back();
+    };
+    int top(){
+        return d.back();
+    };
+    bool empty(){
+        if(d.empty()){
+            return true;
+        };
+        return false;
+    };
+
+
+};
+int main(){
+    stack s;
+    s.push(1);
+    s.push(2);
+    s.push(3);
+    s.push(4);
+    while(!s.empty()){
+        cout<<s.top()<<" ";
+        s.pop();
     };
 
     return 0;
