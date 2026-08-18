@@ -63,7 +63,7 @@ class queue{
         }
  return 0;}*/
    //circular queue using array
-   /* #include<iostream>
+    #include<iostream>
    using namespace std;
    class queue{
     int *arr;
@@ -76,7 +76,7 @@ class queue{
         arr= new int[capacity];
         currSize=0;
         f=0;
-    r=-1;}
+    r=-1;};
         void push(int data){
             if(currSize==capacity){
                 cout<<"queue is full\n";
@@ -112,7 +112,7 @@ class queue{
         cout<<q.front();
         q.pop();
     };
-    return 0;}*/
+    return 0;}
     //queue using stl
    /* #include<iostream>
     #include<queue>
@@ -337,7 +337,7 @@ int main(){
     return 0;
 }*/
 //stack using deque
-#include<iostream>
+/*#include<iostream>
 #include<deque>
 using namespace std;
 class stack{
@@ -373,6 +373,6 @@ int main(){
     };
 
     return 0;
-}
+}*/
 
    
