@@ -43,7 +43,7 @@ int main(){
     };
  return 0;
 }*/
-#include<bits/stdc++.h>
+/*#include<bits/stdc++.h>
 using namespace std;
 bool compare(pair<int,int> p1, pair<int,int>p2){
     return p1.first>p2.first;
@@ -73,5 +73,28 @@ int main(){
     int w= 50;
     cout<<fractional_knapsnack(val,wt,w);
 
+    return 0;
+}*/
+#include<bits/stdc++.h>
+using namespace std;
+int min_absdiff(vector<int>a, vector<int>b){
+    int ans=0;
+    int n= a.size();
+    sort(a.begin(),a.end());
+    sort(b.begin(),b.end());
+    vector<pair<int,int>> c(n,make_pair(0,0));
+    for(int i=0; i<n; i++){
+        c[i]=make_pair(a[i],b[i]);
+    };
+    for(int i=0; i<n; i++){
+ans+= abs(c[i].first - c[i].second);
+    };
+    return ans;
+
+}
+int main(){
+    vector<int> a={4,1,8,7};
+    vector<int> b={2,3,6,5};
+    cout<<min_absdiff(a,b);
     return 0;
 }
