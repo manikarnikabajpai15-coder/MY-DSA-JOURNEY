@@ -3,7 +3,7 @@
 //start a loop from 0 to n and select all nonoverlapping activities
 //overlapping condition-> 1st end>2nd start
 // nonoverlapping condition-> 1st end<=2nd start
-#include<bits/stdc++.h>
+/*#include<bits/stdc++.h>
 
 using namespace std;
 int maxActivities(vector<int> start, vector<int> end){
@@ -22,9 +22,9 @@ bool compare(pair<int,int> p1, pair<int,int>p2){
     return p1.second<p2.second;
 }
 int main(){
-    /*vector<int> start={1,3,0,5,8,5};
+    vector<int> start={1,3,0,5,8,5};
     vector<int> end={2,4,6,7,9,9};
-    cout<<maxActivities(start,end);*/
+    cout<<maxActivities(start,end);
     vector<int> start={0,1,2};
     vector<int> end={9,2,4};
     vector<pair<int,int>> activity(3,make_pair(0,0));
@@ -41,14 +41,37 @@ int main(){
         
 
     };
-
-
+ return 0;
+}*/
+#include<bits/stdc++.h>
+using namespace std;
+bool compare(pair<int,int> p1, pair<int,int>p2){
+    return p1.first>p2.first;
+};
+int fractional_knapsnack(vector<int> val, vector<int> wt, int w){
+    int n= val.size();
+    int ans=0;
+    vector<pair<double,int>> ratio(n, make_pair(0.0,0));
+    for(int i=0; i<n; i++){
+        double r = val[i]/(double) wt[i];
+        ratio[i]= make_pair(r,i);
+    };
+    sort(ratio.begin(), ratio.end(), compare);
+    for(int i=0; i<n; i++){
+        int idx= ratio[i].second;
     
-
-
-
-
-
+        if(wt[idx]<=w){
+            ans+= val[idx];
+            w-= wt[idx];}
+            else{
+                ans+= ratio[i].first* w;
+            };};
+return ans; }
+int main(){
+    vector<int>val= {60,100,120};
+    vector<int>wt= {10,20,30};
+    int w= 50;
+    cout<<fractional_knapsnack(val,wt,w);
 
     return 0;
 }
