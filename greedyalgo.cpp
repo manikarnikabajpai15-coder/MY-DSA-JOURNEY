@@ -75,7 +75,7 @@ int main(){
 
     return 0;
 }*/
-#include<bits/stdc++.h>
+/*#include<bits/stdc++.h>
 using namespace std;
 int min_absdiff(vector<int>a, vector<int>b){
     int ans=0;
@@ -96,5 +96,27 @@ int main(){
     vector<int> a={4,1,8,7};
     vector<int> b={2,3,6,5};
     cout<<min_absdiff(a,b);
-    return 0;
+    return 0
+}*/
+#include<bits/stdc++.h>
+using namespace std;
+void get_change(vector<int>coins, int v){
+int n= coins.size();
+int ans=0;
+for(int i=n-1; i>=0 && v>0; i--){
+    if(v>=coins[i]){
+        ans+=v/coins[i];
+        v=v%coins[i];
+cout<<ans<<"coins of"<<coins[i]<<endl;
+ans=0;
+    };
+    
+
+};
+}
+int main(){
+    vector<int>coins= {1,2,5,10,20,50,100,500,2000};
+    int v= 590;
+get_change(coins,v);
+    return 0
 }
