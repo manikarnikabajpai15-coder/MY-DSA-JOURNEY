@@ -109,6 +109,7 @@ int main(){
     cout<<endl;
     cout<<obj.height(root)<<endl;
     cout<<obj.sum(root);
+    cout<<endl;
     
 
 
