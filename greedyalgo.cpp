@@ -98,7 +98,7 @@ int main(){
     cout<<min_absdiff(a,b);
     return 0
 }*/
-#include<bits/stdc++.h>
+/*#include<bits/stdc++.h>
 using namespace std;
 void get_change(vector<int>coins, int v){
 int n= coins.size();
@@ -123,4 +123,60 @@ get_change(coins,v);
 cout<<endl;
     return 0;
 
+}*/
+#include <bits/stdc++.h>
+using namespace std;
+
+bool compare(pair<int, int> p1, pair<int, int> p2) {
+    return p1.second > p2.second;   // sort by profit descending
 }
+
+int max_profit(vector<pair<int, int>> pairs) {
+
+    sort(pairs.begin(), pairs.end(), compare);
+
+    int maxDeadline = 0;
+
+    for (auto p : pairs) {
+        maxDeadline = max(maxDeadline, p.first);
+    }
+
+    vector<bool> slot(maxDeadline + 1, false);
+
+    int profit = 0;
+
+    for (auto p : pairs) {
+
+        int deadline = p.first;
+        int jobProfit = p.second;
+
+        // Find latest free slot before or at deadline
+        for (int j = deadline; j >= 1; j--) {
+
+            if (!slot[j]) {
+                slot[j] = true;
+                profit += jobProfit;
+                break;
+            }
+        }
+    }
+
+    return profit;
+}
+
+int main() {
+
+    int n = 4;
+
+    vector<pair<int, int>> pairs(n);
+
+    pairs[0] = make_pair(4, 20);
+    pairs[1] = make_pair(1, 10);
+    pairs[2] = make_pair(1, 20);
+    pairs[3]= make_pair(1,40);
+
+    cout << max_profit(pairs);
+
+    return 0;
+};
+
