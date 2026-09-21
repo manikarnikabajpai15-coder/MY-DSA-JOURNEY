@@ -225,7 +225,34 @@ node* LCA2(node*root,int n1,int n2){
         return root;
     }
     return leftLCA==NULL ? rightLCA:leftLCA;
-}
+};
+int dis(node*root, int n){
+    if(root==NULL){
+        return -1;
+    };
+    if(root->data==n){
+        return 0;
+    };
+    int leftdis= dis(root->left,n);
+    if(leftdis!=-1){
+        return leftdis+1;
+    };
+    int rightdis= dis(root->right,n);
+    if(rightdis!=-1){
+        return rightdis+1;
+    };
+    return -1;
+
+};
+int mindis(node*root,int n1,int n2){
+    node*lca= LCA2(root,n1,n2);
+    int dis1= dis(lca,n1);
+    int dis2= dis(lca,n2);
+    return dis1+dis2;
+
+};
+
+
 
 };
 
@@ -234,7 +261,7 @@ int main(){
     vector<int> nodes={1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
     node obj(0);
     node*root= obj.build_tree(nodes);
-cout<<obj.LCA2(root,4,5)->data;
+cout<<obj.mindis(root,4,6);
 return 0;
 
 
