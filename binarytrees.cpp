@@ -97,19 +97,150 @@ return currheight;
         int rsum= sum(root->right);
         return lsum+rsum+root->data;
     };
+    
+    int dia1(node*root){//o(n^2)
+        if(root==NULL){
+            return 0;
+        }
+        int currDia= height(root->left)+ height(root->right)+1;
+        int leftDia= dia1(root->left);
+        int rightDia= dia1(root->right);
+        return max(currDia,max(leftDia,rightDia));
+        
+    };
+    bool is_identical(node*root1, node*root2){
+        if(root1==NULL && root2==NULL){
+            return true;}
+           else if(root1==NULL || root2==NULL){
+                return false;
+            };
+        if(root1->data!=root2->data){
+            return false;
+        };
+        return is_identical(root1->left,root2->left) && is_identical(root1->right,root2->right);
+    }
+    bool issubtree(node*root, node*subroot){
+        if(root==NULL && subroot==NULL){
+            return true;}
+           else if(root==NULL || subroot==NULL){
+                return false;
+            };
+            if(root->data==subroot->data){
+           if (is_identical(root,subroot)){
+            return true;
+           };
+            };
+            int isleftsubtree= issubtree(root->left, subroot);
+            if(!isleftsubtree){
+                return issubtree(root->right, subroot);
+            }
+return true;
+        
+    };
+    void topview(node*root){
+        queue<pair<node*, int>> q;
+        map<int,int>m;
+        q.push(make_pair(root,0));
+        while(!q.empty()){
+            pair<node*,int> curr= q.front();
+            q.pop();
+        
+        node* currNode= curr.first;
+        int currhd= curr.second;
+        if(m.count(currhd)==0){
+            m[currhd]= currNode->data;
+        }
+
+    }
+
 
 
 };
+void khelper(node*root, int k, int currlevel){
+    if(root== NULL){
+        return;
+    }
+    if(currlevel==k){
+        cout<< root->data<<" ";
+        return;
+    }
+    khelper(root->left,k,currlevel+1);
+    khelper(root->right,k,currlevel+1);
+
+}
+void klevel(node*root, int k){
+    khelper(root,k,1);
+    cout<<endl;
+    
+}
+
+    bool findpath(node* root, int n, vector<int>& path) {
+    if (root == NULL) {
+        return false;
+    }
+
+    path.push_back(root->data);
+
+    if (root->data == n) {
+        return true;
+    }
+
+    if (findpath(root->left, n, path)) {
+        return true;
+    }
+
+    if (findpath(root->right, n, path)) {
+        return true;
+    }
+
+    path.pop_back();   // ye path ka important part hai
+    return false;
+}
+
+int LCA1(node*root, int n1, int n2){
+    int l=-1;
+    vector<int> path1;
+    vector<int> path2;
+    findpath(root,n1,path1);
+    findpath(root,n2,path2);
+    for(int i=0;i<path1.size();i++){
+        for(int j=0;j<path2.size(); j++){
+if(path1[i]==path2[j]){
+    l=path1[i];;
+};
+        };
+    };
+    return l;
+};
+node* LCA2(node*root,int n1,int n2){
+    if(root==NULL){
+        return NULL;
+    }
+    if(root->data==n1 || root->data==n2){
+        return root;
+    };
+    node* leftLCA= LCA2(root->left,n1,n2);
+    node* rightLCA= LCA2(root->right,n1,n2);
+    if(leftLCA!=NULL && rightLCA!=NULL){
+        return root;
+    }
+    return leftLCA==NULL ? rightLCA:leftLCA;
+}
+
+};
+
 int node::idx=-1;
 int main(){
     vector<int> nodes={1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
     node obj(0);
     node*root= obj.build_tree(nodes);
-    obj.tree_traversal(root);
-    cout<<endl;
-    cout<<obj.height(root)<<endl;
-    cout<<obj.sum(root);
-    cout<<endl;
+cout<<obj.LCA2(root,4,5)->data;
+return 0;
+
+
+
+
+
     
 
 
