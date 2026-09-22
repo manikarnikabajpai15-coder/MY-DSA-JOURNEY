@@ -251,6 +251,42 @@ int mindis(node*root,int n1,int n2){
     return dis1+dis2;
 
 };
+int kth_ancestor(node*root,int node, int k){
+    if(root==NULL){
+        return -1;
+    };
+    if(root->data==node){
+        return 0;
+    };
+    int leftdis= kth_ancestor(root->left,node,k);
+    int rightdis= kth_ancestor(root->left,node,k);
+if(leftdis==-1 && rightdis==-1){
+    return -1;
+};
+int validval= leftdis==-1 ? rightdis:leftdis;
+if(validval+1==k){
+    return root->data;
+};
+return validval+1;
+    
+};
+int sum_tree(node*root){
+    if(root==NULL){
+        return 0;
+    };
+    int left_old=sum_tree(root->left);
+    int right_old=sum_tree(root->right);
+    int currold= root->data;
+    root->data=left_old+right_old;
+    if(root->left!=NULL){
+    root->data+=root->left->data;};
+    if(root->right!=NULL){
+    root->data+=root->right->data;};
+
+    return currold;
+
+    
+}
 
 
 
@@ -261,7 +297,8 @@ int main(){
     vector<int> nodes={1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
     node obj(0);
     node*root= obj.build_tree(nodes);
-cout<<obj.mindis(root,4,6);
+obj.sum_tree(root);
+obj.tree_traversal(root);
 return 0;
 
 
