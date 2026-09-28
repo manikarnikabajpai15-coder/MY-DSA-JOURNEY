@@ -41,11 +41,26 @@ void inorder(node*root){
    cout<<root->data;
    inorder(root->right);
 };
+bool search(node*root,int key){
+   if(root==NULL){
+      return false;
+   };
+   if(root->data==key){
+      return true;
+   }
+   else if(root->data>key){
+      return search(root->left,key);
+   }
+   else{return search(root->right,key);};
+   return false;
+}
 int main(){
    int arr[6]={8,4,7,2,5,1};
    int n=6;
 node* root= buildbst(arr,6);
 inorder(root);
+cout<<endl;
+cout<<search(root,7);
 cout<<endl;
    return 0;
 }
