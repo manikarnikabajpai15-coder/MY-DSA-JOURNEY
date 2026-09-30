@@ -54,13 +54,60 @@ bool search(node*root,int key){
    else{return search(root->right,key);};
    return false;
 }
+node* search_key(node*root,int key){
+   if(root==NULL){
+      return NULL;
+   };
+   if(root->data==key){
+      return root;
+   }
+   else if(root->data>key){
+      return search_key(root->left,key);
+   }
+   else{return search_key(root->right,key);};
+   return NULL;
+}
+node* inorder_succ(node*root){
+   while(root->left!=NULL){
+      root= root->left;
+   }
+   return root;
+};
+/*deleting a node cases
+for deleting a node firstly search that node and when we found that node
+there will ve three cases 
+1. root have no child (leaf node)
+->simply delete node and return null
+2. root have exactly one child
+->return its child 
+3.root have two children
+-> replace the value of root with its inorderer succesor
+and then delete the inorder succesor node */
+node* delnode(node*root1, int key){
+  node* root= search_key(root1,key);
+  if(root->left==NULL && root->right==NULL){
+   delete root;
+   return NULL;
+  }
+else if(root->left!=NULL || root->right!=NULL){
+   if(root->left!=NULL){
+      return root->left;
+   }
+   else{return root->right;};
+}
+else{
+root->data= inorder_succ(root->right)->data;
+root->right = delnode(root->right,inorder_succ(root->right->data));
+return root;
+};
+
+}
 int main(){
    int arr[6]={8,4,7,2,5,1};
    int n=6;
 node* root= buildbst(arr,6);
 inorder(root);
-cout<<endl;
-cout<<search(root,7);
-cout<<endl;
+delnode(root,7);
+inorder(root);
    return 0;
 }
