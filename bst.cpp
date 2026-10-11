@@ -54,19 +54,7 @@ bool search(node*root,int key){
    else{return search(root->right,key);};
    return false;
 }
-node* search_key(node*root,int key){
-   if(root==NULL){
-      return NULL;
-   };
-   if(root->data==key){
-      return root;
-   }
-   else if(root->data>key){
-      return search_key(root->left,key);
-   }
-   else{return search_key(root->right,key);};
-   return NULL;
-}
+
 node* inorder_succ(node*root){
    while(root->left!=NULL){
       root= root->left;
@@ -83,31 +71,163 @@ there will ve three cases
 3.root have two children
 -> replace the value of root with its inorderer succesor
 and then delete the inorder succesor node */
-node* delnode(node*root1, int key){
-  node* root= search_key(root1,key);
-  if(root->left==NULL && root->right==NULL){
-   delete root;
-   return NULL;
-  }
-else if(root->left!=NULL || root->right!=NULL){
-   if(root->left!=NULL){
-      return root->left;
-   }
-   else{return root->right;};
+
+node* delnode(node* root, int key) {
+
+    if (root == NULL) {
+        return NULL;
+    }
+
+    // Search for the node
+    if (key < root->data) {
+        root->left = delnode(root->left, key);
+    }
+
+    else if (key > root->data) {
+        root->right = delnode(root->right, key);
+    }
+
+    // Node found
+    else {
+
+        // Case 1: No child
+        if (root->left == NULL && root->right == NULL) {
+            delete root;
+            return NULL;
+        }
+
+        // Case 2: Only left child
+        else if (root->right == NULL) {
+            node* temp = root->left;
+            delete root;
+            return temp;
+        }
+
+        // Case 2: Only right child
+        else if (root->left == NULL) {
+            node* temp = root->right;
+            delete root;
+            return temp;
+        }
+
+        // Case 3: Two children
+        else {
+            node* succ = inorder_succ(root->right);
+
+            root->data = succ->data;
+
+            root->right = delnode(root->right, succ->data);
+        }
+    }
+
+    return root;
 }
-else{
-root->data= inorder_succ(root->right)->data;
-root->right = delnode(root->right,inorder_succ(root->right->data));
-return root;
+void printInRange(node*root, int v1,int v2){
+   if(root==NULL){
+      return;
+   }
+   if(root->data>=v1 && root->data<=v2){
+      cout<<root->data<<" ";
+      printInRange(root->left,v1,v2);
+      printInRange(root->right,v1,v2);}
+      else if(root->data<v1){
+         printInRange(root->right,v1,v2);
+      }
+      else if(root->data>v2){
+         printInRange(root->left,v1,v2);
+      };}
+      node* arr_to_bst(vector<int>& arr, int left, int right) {
+    if (left > right) {
+        return NULL;
+    }
+
+    int mid = left + (right - left) / 2;
+
+    node* root = new node(arr[mid]);
+
+    root->left = arr_to_bst(arr, left, mid - 1);
+    root->right = arr_to_bst(arr, mid + 1, right);
+
+    return root;
+}
+
+void inorder1(node* root, vector<int>& arr) {
+    if (root == NULL) {
+        return;
+    }
+
+    inorder1(root->left, arr);
+    arr.push_back(root->data);
+    inorder1(root->right, arr);
+}
+
+node* bst_to_balbst(node* curr) {
+    vector<int> v;
+
+    // Step 1: Store BST elements in sorted order
+    inorder1(curr, v);
+
+    // Step 2: Build a balanced BST
+    node* root = arr_to_bst(v, 0, (int)v.size() - 1);
+
+    return root;
+}
+class info{
+   public:
+   bool isbst;
+   int max;
+   int min;
+   int sz;
+   info(bool isbst, int max, int min, int sz){
+      this->isbst= isbst;
+      this->max= max;
+      this->min=min;
+      this->sz=sz;
+   }
 };
+static int maxsize=0;
+info* largestBst(node*root){
+   
+   if(root==NULL){
+      return new info(true,INT_MIN,INT_MAX,0);
+   };
+   info* leftinfo= largestBst(root->left);
+   info* rightinfo= largestBst(root->right);
+   int currMin= min(root->data,min(leftinfo->min,rightinfo->min));
+   int currMax= max(root->data,max(leftinfo->max,rightinfo->max));
+   int currsz= leftinfo->sz + rightinfo->sz+ 1;
+if(leftinfo->isbst && rightinfo->isbst && root->data>leftinfo->max &&
+root->data<rightinfo->min){
+   maxsize= max(maxsize,currsz);
+   return new info(true,currMax,currMin,currsz);
+   
+}
+
+return new info(false,currMax,currMin,currsz);
 
 }
-int main(){
-   int arr[6]={8,4,7,2,5,1};
-   int n=6;
-node* root= buildbst(arr,6);
-inorder(root);
-delnode(root,7);
-inorder(root);
-   return 0;
+node*merge_bst(node*root1,node*root2){
+   vector<int>a1;
+   vector<int>a2;
+   inorder1(root1,a1);
+   inorder1(root2,a2);
+   
+
+
+
 }
+ int main(){
+   node* root= new node(50);
+   root->left= new node(30);
+   root->left->left= new node(5);
+   root->left->right= new node(20);
+   root->right= new node(60);
+   root->right->left= new node(45);
+   root->right->right= new node(70);
+   root->right->right->left= new node(65);
+   root->right->right->right= new node(80);
+   largestBst(root);
+   cout<<maxsize;
+   return 0;
+ }
+      
