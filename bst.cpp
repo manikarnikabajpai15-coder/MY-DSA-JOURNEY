@@ -209,25 +209,38 @@ return new info(false,currMax,currMin,currsz);
 node*merge_bst(node*root1,node*root2){
    vector<int>a1;
    vector<int>a2;
+   vector<int>merged;
    inorder1(root1,a1);
    inorder1(root2,a2);
+   int i=0; int j=0;
+   while(i<a1.size() && j<a2.size()){
+      if(a1[i]<a2[j]){
+merged.push_back(a1[i++]);
+      }
+      else{merged.push_back(a2[j++]);};
+   };
+   while(i<a1.size()){
+      merged.push_back(a1[i++]);
+   };
+   while(j<a2.size()){
+      merged.push_back(a2[j++]);
+   };
+   return arr_to_bst(merged,0,merged.size()-1);}
    
 
 
 
-}
+
  int main(){
-   node* root= new node(50);
-   root->left= new node(30);
-   root->left->left= new node(5);
-   root->left->right= new node(20);
-   root->right= new node(60);
-   root->right->left= new node(45);
-   root->right->right= new node(70);
-   root->right->right->left= new node(65);
-   root->right->right->right= new node(80);
-   largestBst(root);
-   cout<<maxsize;
+   node* root1= new node(2);
+    root1->left= new node(1);
+    root1->right= new node(4);
+    node* root2= new node(9);
+    root2->left= new node(3);
+    root2->right= new node(12);
+    node* root= merge_bst(root1,root2);
+    inorder(root);
+
    return 0;
  }
       
