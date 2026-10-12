@@ -18,6 +18,18 @@ int main(){
         cout<<pq.top()<<"";
         pq.pop();
     };
+    cout<<endl;
+    priority_queue<int,vector<int>,greater<int>> pqmin;
+    pqmin.push(20);
+    pqmin.push(10);
+    pqmin.push(5);
+    pqmin.push(7);
+    pqmin.push(2);
+    while(!pqmin.empty()){
+        cout<<pqmin.top()<<"";
+        pqmin.pop();
+    };
+
 
     return 0;
 }
