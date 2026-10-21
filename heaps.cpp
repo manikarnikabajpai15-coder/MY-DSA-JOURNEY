@@ -233,6 +233,53 @@ int main(){
     cout<<connect_n_ropes(ropes);
     return 0;
 };*/
+//weakest soldier
+/*#include <iostream>
+#include <vector>
+#include <queue>
+using namespace std;
+class row{
+    public:
+    int count;
+    int idx;
+    row(int count,int idx){
+        this->count=count;
+        this->idx=idx;}
+        bool operator <(const row &obj) const{
+            if(this->count==obj.count){
+                return this->idx> obj.idx;
+            }
+            return this->count > obj.count;
+        };
+
+    
+};
+void weakest_soldier(vector<vector<int>> matrix, int k){
+    vector<row> rows;
+    int count=0;
+    for(int i=0; i<matrix.size(); i++){
+        for(int j=0; j<matrix[i].size() && matrix[i][j]==1; j++){
+            count++;
+            
+        };
+        rows.push_back(row(count,i));
+        count=0;
+    };
+    priority_queue<row> pq(rows.begin(),rows.end());
+    for(int i=0;i<k;i++){
+        cout<<pq.top().idx<<endl;
+        pq.pop();
+    };
+};
+int main(){
+    vector<vector<int>> matrix=  {{1,0,0,0},
+                                  {1,1,1,0},
+                                  {1,0,0,0},
+                                  {1,0,0,0}};
+    weakest_soldier(matrix,2);
+    return 0;                              
+};*/
+//sliding window max
 
 
 
