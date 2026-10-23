@@ -19,3 +19,42 @@ IT IS NOT NEIGHBOUR OPTIMIZED AND SPACE OPTIMIZED.
 EDGE LIST-> THE LIST OF EDGES IN FORM OF VECTORS OR LISTS 
 IF THERE ARE TWO TERMS GIVEN LIKE U AND V THEN WE WILL MAKE PAIR
 BUT IF THERE ARE THREE TERMS THEN WE WILL MAKE CLASS AND THEN MAKE VECTOR OF THAT CLASS. */
+//ADJACENCY LIST->
+#include<iostream>
+#include<list>
+#include<vector>
+using namespace std;
+class graph{
+    int v;
+    list<int> *l;
+    public:
+    graph(int v){
+        this->v= v;
+        l= new list<int> [v];
+    };
+
+void addEdge(int p, int q){
+    l[p].push_back(q);
+    l[q].push_back(p);
+
+};
+void print(){
+    for(int i=0; i<v; i++){
+        list<int> neighbours= l[i];
+        cout<<i<<":";
+        for(int u:neighbours){
+            cout<<u<<" ";
+        };
+        cout<<endl;
+    };
+};};
+int main(){
+    graph g(5);
+g.addEdge(0,1);
+g.addEdge(1,2);
+g.addEdge(1,3);
+g.addEdge(2,3);
+g.addEdge(2,4);
+g.print();
+    return 0;
+}
