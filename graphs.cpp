@@ -20,9 +20,10 @@ EDGE LIST-> THE LIST OF EDGES IN FORM OF VECTORS OR LISTS
 IF THERE ARE TWO TERMS GIVEN LIKE U AND V THEN WE WILL MAKE PAIR
 BUT IF THERE ARE THREE TERMS THEN WE WILL MAKE CLASS AND THEN MAKE VECTOR OF THAT CLASS. */
 //ADJACENCY LIST->unweighted
-/*#include<iostream>
+#include<iostream>
 #include<list>
 #include<vector>
+#include<queue>
 using namespace std;
 class graph{
     int v;
@@ -47,6 +48,25 @@ void print(){
         };
         cout<<endl;
     };
+};
+void bfs(){
+queue<int> q;
+vector<bool> visi(v,false);
+q.push(0);
+visi[0]=true;
+while(q.size()>0){
+    int u= q.front();
+    q.pop();
+    cout<<u<<" ";
+    list<int> neighbours= l[u];
+    for(int i:neighbours){
+        if(!visi[i]){
+            visi[i]=true;
+            q.push(i);
+        };
+    };
+};
+
 };};
 int main(){
     graph g(5);
@@ -55,11 +75,11 @@ g.addEdge(1,2);
 g.addEdge(1,3);
 g.addEdge(2,3);
 g.addEdge(2,4);
-g.print();
+g.bfs();
     return 0;
-}*/
+}
 //adjacency list->weighted
-#include<iostream>
+/*#include<iostream>
 #include<list>
 #include<vector>
 using namespace std;
@@ -85,6 +105,9 @@ cout<<"("<<u.first<<","<<u.second<<")"<<" ";
             cout<<endl;
         };
     };
+    
+        
+    
 };
 int main(){
     graph g(5);
@@ -96,4 +119,4 @@ g.addEdge(2,3,4);
 g.addEdge(2,4,0);
 g.print();
     return 0;
-}
+}*/
