@@ -19,8 +19,8 @@ IT IS NOT NEIGHBOUR OPTIMIZED AND SPACE OPTIMIZED.
 EDGE LIST-> THE LIST OF EDGES IN FORM OF VECTORS OR LISTS 
 IF THERE ARE TWO TERMS GIVEN LIKE U AND V THEN WE WILL MAKE PAIR
 BUT IF THERE ARE THREE TERMS THEN WE WILL MAKE CLASS AND THEN MAKE VECTOR OF THAT CLASS. */
-//ADJACENCY LIST->
-#include<iostream>
+//ADJACENCY LIST->unweighted
+/*#include<iostream>
 #include<list>
 #include<vector>
 using namespace std;
@@ -55,6 +55,45 @@ g.addEdge(1,2);
 g.addEdge(1,3);
 g.addEdge(2,3);
 g.addEdge(2,4);
+g.print();
+    return 0;
+}*/
+//adjacency list->weighted
+#include<iostream>
+#include<list>
+#include<vector>
+using namespace std;
+class graph{
+    int v;
+    list<pair<int,int>> *l;
+    public:
+    graph(int v){
+        this->v= v;
+        l= new list<pair<int,int>> [v];
+    };
+    void addEdge(int p,int q,int w){
+l[p].push_back(make_pair(q,w));
+l[q].push_back(make_pair(p,w));
+    };
+    void print(){
+        for(int i=0; i<v; i++){
+            cout<<i<<":";
+            list<pair<int,int>> neighbours= l[i];
+            for(pair<int,int> u:neighbours){
+cout<<"("<<u.first<<","<<u.second<<")"<<" ";
+            }
+            cout<<endl;
+        };
+    };
+};
+int main(){
+    graph g(5);
+    g.addEdge(0,1,2);
+g.addEdge(1,2,7);
+
+g.addEdge(1,3,-1);
+g.addEdge(2,3,4);
+g.addEdge(2,4,0);
 g.print();
     return 0;
 }
