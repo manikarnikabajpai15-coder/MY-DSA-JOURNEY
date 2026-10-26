@@ -78,7 +78,28 @@ void dfs(int u, vector<bool> &visi){
         };
     };
 
-};};
+};
+bool pathhelper(int src, int des, vector<bool> &visited){
+    if(src==des){
+        return true;
+    }
+    visited[src]= true;
+    list<int> neighbours= l[src];
+    for(int i: neighbours){
+        if(!visited[i]){
+        if(pathhelper(i,des,visited)){
+            return true;
+        }
+    }
+
+    }
+    return false;
+}
+bool has_path(int src, int des){
+    vector<bool> visited(v,false);
+    return pathhelper(src,des,visited);
+}
+};
 int main(){
     graph g(5);
     vector<bool> visi(5,false);
@@ -87,7 +108,7 @@ g.addEdge(1,2);
 g.addEdge(1,3);
 g.addEdge(2,3);
 g.addEdge(2,4);
-g.dfs(0,visi);
+cout<<g.has_path(0,3);
     return 0;
 }
 //adjacency list->weighted
