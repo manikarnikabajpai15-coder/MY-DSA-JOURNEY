@@ -68,17 +68,25 @@ while(q.size()>0){
 };
 
 };
-void dfs(int u, vector<bool> &visi){
+void dfshelper(int u, vector<bool> &visi){
+    
     visi[u]=true;
     cout<<u<<" ";
     list<int> neighbours= l[u];
     for(int i: neighbours){
         if(!visi[i]){
-            dfs(i,visi);
+            dfshelper(i,visi);
         };
     };
 
 };
+void dfs(){
+    vector<bool> vis(v,false);
+    for(int i=0; i<v; i++){
+        if(!vis[i]){
+         dfshelper(i,vis);};
+         cout<<endl;
+}};
 bool pathhelper(int src, int des, vector<bool> &visited){
     if(src==des){
         return true;
@@ -101,14 +109,16 @@ bool has_path(int src, int des){
 }
 };
 int main(){
-    graph g(5);
-    vector<bool> visi(5,false);
+    graph g(8);
+    vector<bool> visi(8,false);
 g.addEdge(0,1);
 g.addEdge(1,2);
 g.addEdge(1,3);
 g.addEdge(2,3);
 g.addEdge(2,4);
-cout<<g.has_path(0,3);
+g.addEdge(5,6);
+g.addEdge(7,5);
+g.dfs();
     return 0;
 }
 //adjacency list->weighted
