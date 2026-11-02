@@ -210,20 +210,61 @@ bool bipartite(){
     return true;
 
 }
+/*
+bipartite conditions:-
+1-> the coloring condition
+2->if the graph is acyclic then it will be a bipartite graph
+3->if the cycle is even the in will be a bipartite
+4-> if the cycle is odd then it will not be a bipartite*/
+bool bipartite2(int n){
+
+    if(!iscycleundir()){
+        return true;
+    }
+    else{
+        if(n%2==0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    return false;
+};
+void pathhelper(int src, int des, vector<bool> &vis, string &path){
+    if(src==des){
+        cout<<path<<des<<endl;
+        return;
+    };
+    vis[src]= true;
+    path+=to_string(src);
+    list<int> neigbours= l[src];
+    for(int i: neigbours){
+        if(!vis[i]){
+            pathhelper(i,des,vis,path);
+        };
+    };
+    path= path.substr(0,path.size()-1);
+    vis[src]=false;
+
+};
+void allpaths(int src, int des){
+    vector<bool> vis(v,false);
+    string path= "";
+    pathhelper(src,des,vis,path);
+};
 
 };
 int main(){
-    graph g(4);
-    
-
-    g.addEdge(0,1);
-    g.addEdge(0,2);
-    g.addEdge(1,3);
+    graph g(6,false);
+    g.addEdge(0,3);
     g.addEdge(2,3);
-
-   cout<<g.bipartite();
-
-
+    g.addEdge(3,1);
+    g.addEdge(4,0);
+    g.addEdge(4,1);
+    g.addEdge(5,0);
+    g.addEdge(5,2);
+    g.allpaths(5,1);
 
     return 0;
 }
