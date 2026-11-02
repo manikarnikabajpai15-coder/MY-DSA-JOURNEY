@@ -24,19 +24,24 @@ BUT IF THERE ARE THREE TERMS THEN WE WILL MAKE CLASS AND THEN MAKE VECTOR OF THA
 #include<list>
 #include<vector>
 #include<queue>
+#include<string>
 using namespace std;
 class graph{
     int v;
     list<int> *l;
+    bool isundir;
     public:
-    graph(int v){
+    graph(int v, bool isundir=true){
         this->v= v;
+        this->isundir=isundir;
         l= new list<int> [v];
+
     };
 
 void addEdge(int p, int q){
     l[p].push_back(q);
-    l[q].push_back(p);
+    if(isundir){
+    l[q].push_back(p);}
 
 };
 void print(){
@@ -80,13 +85,19 @@ void dfshelper(int u, vector<bool> &visi){
     };
 
 };
-void dfs(){
+void dfs_disjoint(){
     vector<bool> vis(v,false);
     for(int i=0; i<v; i++){
         if(!vis[i]){
          dfshelper(i,vis);};
          cout<<endl;
 }};
+
+void dfs(){
+    vector<bool> vis(v,false);
+         dfshelper(0,vis);
+         cout<<endl;
+};
 bool pathhelper(int src, int des, vector<bool> &visited){
     if(src==des){
         return true;
@@ -107,10 +118,76 @@ bool has_path(int src, int des){
     vector<bool> visited(v,false);
     return pathhelper(src,des,visited);
 }
+//cycle in graphs
+/*cycle detection:-
+ undirected-> algorithms->
+ ->bfs
+ ->dfs
+ ->disjoint set union
+ directed-> algorithms->
+ ->bfs
+ ->dfs
+ ->kahns algorithms(topological) 
+           */
+bool undircycle_help(int src, int par, vector<bool> vis){
+    vis[src]= true;
+    list<int> neighbours= l[src];
+    for(int i: neighbours){
+if(!vis[i]){
+    if(undircycle_help(i,par,vis)){
+    return true;}
+    else{
+        if(i!=par){
+            return true;
+        };
+    };
+
+};
+    }
+    return false;
+};
+bool iscycleundir(){
+    vector<bool>vis(v,false);
+   return undircycle_help(0,-1,vis);
+};
+/*the edge which connects src and the neighbour which is not parent is called back edge.*/
+bool cycledirhelp(int src, vector<bool> &vis, vector<bool> &recpath){
+    vis[src]= true;
+    recpath[src]= true;
+    list<int> neighbours= l[src];
+    for(int i: neighbours){
+if(!vis[i]){
+    if(cycledirhelp(i,vis,recpath)){
+        return true;
+    }}
+    else{
+        if(recpath[i]){
+            return true;
+        };
+    };
+}
+    
+    recpath[src]= false;
+    return false;
+
+};
+bool iscycledir(){
+        vector<bool> vis(v,false);
+        vector<bool> recpath(v,false);
+        for(int i=0; i<v; i++){
+            if(!vis[i]){
+                if(cycledirhelp(i,vis,recpath)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    };
+
 };
 int main(){
-    graph g(8);
-    vector<bool> visi(8,false);
+    graph g(8,false);
+    
 g.addEdge(0,1);
 g.addEdge(1,2);
 g.addEdge(1,3);
@@ -118,7 +195,9 @@ g.addEdge(2,3);
 g.addEdge(2,4);
 g.addEdge(5,6);
 g.addEdge(7,5);
-g.dfs();
+g.addEdge(3, 1);
+cout<<g.iscycledir();
+
     return 0;
 }
 //adjacency list->weighted
@@ -163,3 +242,4 @@ g.addEdge(2,4,0);
 g.print();
     return 0;
 }*/
+// Bipartite graph->no edge connect vertices of same path
