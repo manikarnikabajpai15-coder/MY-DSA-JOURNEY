@@ -183,20 +183,48 @@ bool iscycledir(){
         }
         return false;
     };
+    // Bipartite graph->no edge connect vertices of same path
+bool bipartite(){
+    queue<int> q;
+    vector<bool> vis(v,false);
+    vector<int> color(v,-1);
+    q.push(0);
+    color[0]=0;
+    while(q.size()>0){
+        int curr= q.front();
+        q.pop();
+        list<int> neighbours= l[curr];
+        for(int i: neighbours){
+            if(!vis[i]){
+                vis[i]= true;
+                color[i]=!color[curr];
+                q.push(i);
+            }
+            else{
+                if(color[i]==color[curr]){
+                    return false;
+                }
+            };
+        };
+
+    };
+    return true;
+
+}
 
 };
 int main(){
-    graph g(8,false);
+    graph g(4);
     
-g.addEdge(0,1);
-g.addEdge(1,2);
-g.addEdge(1,3);
-g.addEdge(2,3);
-g.addEdge(2,4);
-g.addEdge(5,6);
-g.addEdge(7,5);
-g.addEdge(3, 1);
-cout<<g.iscycledir();
+
+    g.addEdge(0,1);
+    g.addEdge(0,2);
+    g.addEdge(1,3);
+    g.addEdge(2,3);
+    g.addEdge(0,3);
+   cout<<g.bipartite();
+   
+
 
     return 0;
 }
