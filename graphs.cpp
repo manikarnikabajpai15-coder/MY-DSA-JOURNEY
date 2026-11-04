@@ -25,6 +25,7 @@ BUT IF THERE ARE THREE TERMS THEN WE WILL MAKE CLASS AND THEN MAKE VECTOR OF THA
 #include<vector>
 #include<queue>
 #include<string>
+#include<stack>
 using namespace std;
 class graph{
     int v;
@@ -253,18 +254,46 @@ void allpaths(int src, int des){
     string path= "";
     pathhelper(src,des,vis,path);
 };
+/*TOPOLOGICAL SORTING -> USED FOR DIRECTED ACYCLIC GRAPHS
+LINEAR ORDER OF VERTICES SUCH THAT FOR EVERY U->V, U COMES BEFORE V*/
+void topohelper(int src, vector<bool> &vis, stack<int> &s){
+    vis[src]= true;
+    list<int> neighbours= l[src];
+    for(int i: neighbours){
+        if(!vis[i]){
+            topohelper(i,vis,s);
+        };
+    };
+    s.push(src);
+    
 
+};
+void toposort(){
+    vector<bool> vis(v,false);
+    stack<int> s;
+    for(int i=0; i<v; i++){
+        if(!vis[i]){
+            topohelper(i,vis,s);
+        };
+    };
+    while(!s.empty()){
+        cout<<s.top();
+        s.pop();
+    };
+};
 };
 int main(){
     graph g(6,false);
-    g.addEdge(0,3);
     g.addEdge(2,3);
+
     g.addEdge(3,1);
     g.addEdge(4,0);
     g.addEdge(4,1);
     g.addEdge(5,0);
     g.addEdge(5,2);
-    g.allpaths(5,1);
+    g.toposort();
+
+
 
     return 0;
 }
